@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - SpiderSpawner
+  - SpawnerButton
   layers:
   - Default
   - TransparentFX
@@ -42,9 +43,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Bait
+    uniqueID: 2162769931
+    locked: 0
   - name: Character
     uniqueID: 3990403981
     locked: 0
   - name: Background
     uniqueID: 3968333397
+    locked: 0
+  - name: UI
+    uniqueID: 1434276893
     locked: 0
