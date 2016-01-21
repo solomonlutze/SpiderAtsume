@@ -2,15 +2,20 @@
 using System.Collections;
 
 public class CanvasHandler : MonoBehaviour {
+	public GameObject playCanvas;
 	public GameObject bugPickerCanvas;
 	public GameObject bugPlacerCanvas;
-	public GameObject playCanvas;
+	public GameObject collectionCanvas;
 	public GameObject[] spawnerButtons = null;
 
-	// Use this for initialization
+	// We could also just say that only one canvas can be active at a time,
+	// have events activate a particular canvas, and then deactivate all the other ones.
+	// It's not worth a refactor at the moment though.
+
 	void Start () {
 		bugPickerCanvas.SetActive(false);
 		bugPlacerCanvas.SetActive(false);
+		collectionCanvas.SetActive(false);
 	}
 
 	public void OpenMenu () {
@@ -18,10 +23,20 @@ public class CanvasHandler : MonoBehaviour {
 		bugPickerCanvas.SetActive(true);
 	}
 
+	public void OpenCollection() {
+		playCanvas.SetActive(false);
+		bugPlacerCanvas.SetActive(false);
+		bugPickerCanvas.SetActive(false);
+		collectionCanvas.SetActive(true);
+		collectionCanvas.SendMessage("displayCollectionButtons");
+
+	}
 	public void CloseMenu () {
+		collectionCanvas.SendMessage("resetPage");
 		playCanvas.SetActive(true);
 		bugPlacerCanvas.SetActive(false);
 		bugPickerCanvas.SetActive(false);
+		collectionCanvas.SetActive(false);
 	}
 
 	public void PickBug(string pickedBug) {
