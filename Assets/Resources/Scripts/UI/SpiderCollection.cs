@@ -14,8 +14,11 @@ public class SpiderCollection : MonoBehaviour {
 		Debug.Log ("display collection buttons...");
 		for(int i = 0; i < collectionButtons.Length; i++) {
 			GameObject.Destroy(currentSpiderCards[i]);
-			Debug.Log ("instantiating "+collectedSpiderPrefabs[i].name);
-			GameObject myPrefab = collectedSpiderPrefabs[i + ((page-1) * collectionButtons.Length)];
+			GameObject myPrefab = missingSpiderPrefab;
+			if (i + ((page-1) * collectionButtons.Length) < collectedSpiderPrefabs.Length
+			    && 1 == PlayerPrefs.GetInt(collectedSpiderPrefabs[i + ((page-1) * collectionButtons.Length)].name+".hasVisited") ) {
+			 	myPrefab = collectedSpiderPrefabs[i + ((page-1) * collectionButtons.Length)];
+			}
 			GameObject collectionButton = collectionButtons[i];
 			Debug.Log ("instantiating "+myPrefab.name);
 			GameObject spiderCard = GameObject.Instantiate(myPrefab, collectionButton.transform.position, collectionButton.transform.rotation) as GameObject;
@@ -26,17 +29,21 @@ public class SpiderCollection : MonoBehaviour {
 	}
 
 	public void pageForward () {
-		if (page <= 6) {
+		if (page == 6) {
+			page = 1;
+		} else {
 			page++;
-			displayCollectionButtons();
 		}
+		displayCollectionButtons();
 	}
 
 	public void pageBackward () {
-		if (page >= 1) {
+		if (page == 1) {
+			page = 6;
+		} else {
 			page--;
-			displayCollectionButtons();
 		}
+		displayCollectionButtons();
 	}
 
 	void resetPage() {

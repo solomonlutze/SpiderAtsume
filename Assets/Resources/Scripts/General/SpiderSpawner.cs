@@ -36,8 +36,12 @@ public class SpiderSpawner : MonoBehaviour {
 			mySpider.transform.Rotate(0, 0, 30*UnityEngine.Random.Range (1, 12));
 			spiderPrefab.GetComponent<Spider>().spawnerId = gameObject.name;
 			PlayerPrefs.SetString(gameObject.name+".mySpider", spiderPrefab.name);
+			PlayerPrefs.SetInt(spiderPrefab.name+".hasVisited", 1);
 			int spiderVisits = PlayerPrefs.GetInt(mySpider.gameObject.name+".numberOfVisits", 0);
-			mySpider.transform.localScale += new Vector3(0.1F*spiderVisits, 0.1F*spiderVisits); 
+			spiderVisits = spiderVisits > 5 ? 5 : spiderVisits;
+			mySpider.transform.localScale = new Vector3(
+				transform.localScale.x*0.3F*spiderVisits, 
+				transform.localScale.y*0.3F*spiderVisits); 
 			if (myBait) {
 				myBait.transform.position = mySpider.transform.position + (mySpider.transform.up * mySpider.transform.localScale.x);
 				myBait.transform.parent = mySpider.transform;
