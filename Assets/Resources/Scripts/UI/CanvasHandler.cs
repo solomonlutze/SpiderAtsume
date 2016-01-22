@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class CanvasHandler : MonoBehaviour {
@@ -6,6 +7,8 @@ public class CanvasHandler : MonoBehaviour {
 	public GameObject bugPickerCanvas;
 	public GameObject bugPlacerCanvas;
 	public GameObject collectionCanvas;
+	public GameObject announceDeathPrefab;
+	private Text myDeathAnnouncement;
 	public GameObject[] spawnerButtons = null;
 
 	// We could also just say that only one canvas can be active at a time,
@@ -54,8 +57,10 @@ public class CanvasHandler : MonoBehaviour {
 		playCanvas.SetActive(true);
 	}
 
-	// Update is called once per frame
-	void Update () {
-	
+	public void announceDeath(string killedSpider, string killerSpider) {
+		myDeathAnnouncement = GameObject.Instantiate(announceDeathPrefab).GetComponent<Text>();
+		myDeathAnnouncement.text = killedSpider + " killed by " + killerSpider;
+		myDeathAnnouncement.transform.SetParent(playCanvas.transform, false);
 	}
+
 }

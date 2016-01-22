@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using SimpleJSON;
 
 public class SpiderCollection : MonoBehaviour {
 	
@@ -7,7 +8,14 @@ public class SpiderCollection : MonoBehaviour {
 	public GameObject[] collectionButtons;
 	private GameObject[] currentSpiderCards = new GameObject[4];
 	public GameObject missingSpiderPrefab;
+	public GameObject spiderDescriptionPrefab;
 	private int page = 1;
+	public TextAsset spiderDescriptionsAsset;
+	private JSONNode spiderDescriptions;
+
+	void Start() {
+		spiderDescriptions = JSON.Parse(spiderDescriptionsAsset.text);
+	}
 
 	// Use this for initialization
 	void displayCollectionButtons () {
@@ -24,6 +32,8 @@ public class SpiderCollection : MonoBehaviour {
 			GameObject spiderCard = GameObject.Instantiate(myPrefab, collectionButton.transform.position, collectionButton.transform.rotation) as GameObject;
 			spiderCard.transform.SetParent(collectionButton.transform, false);
 			spiderCard.transform.position = collectionButton.transform.position;
+			spiderCard.GetComponent<SpiderCollectionCardButton>().myCanvas = gameObject;
+			spiderCard.GetComponent<SpiderCollectionCardButton>().mySpider = myPrefab.name;
 			currentSpiderCards[i] = spiderCard;
 		}
 	}
@@ -48,5 +58,9 @@ public class SpiderCollection : MonoBehaviour {
 
 	void resetPage() {
 		page = 1;
+	}
+
+	void openDescription(string spiderName) {
+		Debug.Log ("opening description for "+spiderName);
 	}
 }

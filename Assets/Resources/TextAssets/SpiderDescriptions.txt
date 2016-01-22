@@ -1,0 +1,8 @@
+﻿{
+    "Bitsy": {
+    	"description": "Little, but brave."
+    },
+    "MissingSpider":{
+    	"description": "A spider that can't be found. How did you get here?"
+    }
+}
