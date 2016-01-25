@@ -55,7 +55,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spiderMin: 0
-  spiderMax: 5
+  spiderMax: 6
   simpleName: Housefly
 --- !u!212 &21207580
 SpriteRenderer:
@@ -97,7 +97,7 @@ Prefab:
         type: 3}
     - target: {fileID: 0}
       propertyPath: spiderMax
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: simpleName

@@ -115,7 +115,10 @@ public class SpiderMaster : UsesPlayerPrefs {
 			Bait baitScript = spiderSpawnerScript.myBait.GetComponent<Bait>();
 			int min = baitScript.spiderMin;
 			int max = baitScript.spiderMax;
-			GameObject selectedSpiderPrefab = spiderPrefabs[UnityEngine.Random.Range(min, max)];
+			int roll = UnityEngine.Random.Range(min, max);
+			GameObject selectedSpiderPrefab = spiderPrefabs[roll];
+			Debug.Log ("max "+baitScript.spiderMax);
+			Debug.Log ("selected "+roll);
 			if (availableSpiders[selectedSpiderPrefab.name]){
 				int numberOfVisits = PlayerPrefs.GetInt(selectedSpiderPrefab.name+".numberOfVisits");
 				PlayerPrefs.SetInt (selectedSpiderPrefab.name+".numberOfVisits", numberOfVisits+1);
