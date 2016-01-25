@@ -18,15 +18,14 @@ public class SpiderMaster : UsesPlayerPrefs {
 	// Use this for initialization
 	void Awake () {
 		spiderSpawners = GameObject.FindGameObjectsWithTag("SpiderSpawner");
-		PopulateAvailableSpiders();
+		populateAvailableSpiders();
 	}
+	
 
-
-	void PopulateAvailableSpiders() {
+	void populateAvailableSpiders() {
 		for(int i = 0; i < spiderPrefabs.Length; i++) {
 			availableSpiders.Add(spiderPrefabs[i].name, true);
 			if (PlayerPrefs.GetString(spiderPrefabs[i].name+".killedBy", "") != "") {
-				Debug.Log ("RIP "+spiderPrefabs[i].name+ ":(");
 				availableSpiders[spiderPrefabs[i].name] = false;
 			}
 			spiderPrefabDictionary.Add(spiderPrefabs[i].name, spiderPrefabs[i]);
@@ -37,9 +36,20 @@ public class SpiderMaster : UsesPlayerPrefs {
 				availableSpiders[existingSpider] = false;
 			}
 		}
+		canvasHandler.GetComponent<CanvasHandler>().showWinner("Bitsy");
+		if (PlayerPrefs.GetInt("totalSpidersKilled") == spiderPrefabs.Length - 1) {
+			string winnerSpider = "MissingSpider";
+			foreach (string potentialWinner in availableSpiders.Keys) {
+				if (availableSpiders[potentialWinner]) {
+					winnerSpider = potentialWinner;
+					break;
+				}
+			}
+			canvasHandler.GetComponent<CanvasHandler>().showWinner(winnerSpider);
+		}
+
 	}
 
-	
 	//if baitSetAt < 60 seconds, spawn the bait
 	//else if baitSetAt < 15 minutes, spawn the bait plus the spider
 		//if there's already a spider saved, spawn that one
@@ -54,10 +64,8 @@ public class SpiderMaster : UsesPlayerPrefs {
 
 	void LoadSpiderSpawners() {
 		if (spiderSpawners != null) {
-			Debug.Log ("loading spider spawners!!");
 			for(int i = 0; i < spiderSpawners.Length; i++) {
 				TimeSpan timeSinceBaitSet = DataKeeper.getTimeSinceStamp(spiderSpawners[i].gameObject.name+".baitSetAt");
-				Debug.Log ("time Since Bait Set: " +timeSinceBaitSet.TotalSeconds);
 				if (timeSinceBaitSet.TotalSeconds > 0) {  // Should only ever be 0 if the stamp isn't set
 					SpiderSpawner spiderSpawnerScript = spiderSpawners[i].GetComponent<SpiderSpawner>();
 					string spiderSpawnerName = spiderSpawners[i].gameObject.name;
@@ -94,7 +102,6 @@ public class SpiderMaster : UsesPlayerPrefs {
 	public void spawnSpider(string spiderSpawnerName, SpiderSpawner spiderSpawnerScript) {
 		string existingSpider = PlayerPrefs.GetString (spiderSpawnerName+".mySpider","");
 		if (existingSpider != "") {
-			Debug.Log ("existingSpider: "+existingSpider);
 			spiderSpawnerScript.spiderPrefab = spiderPrefabDictionary[existingSpider];
 			availableSpiders[existingSpider] = false;
 			spiderSpawnerScript.SendMessage("spawnSpider");
@@ -109,10 +116,11 @@ public class SpiderMaster : UsesPlayerPrefs {
 			int min = baitScript.spiderMin;
 			int max = baitScript.spiderMax;
 			GameObject selectedSpiderPrefab = spiderPrefabs[UnityEngine.Random.Range(min, max)];
-			Debug.Log ("selected spider: " + selectedSpiderPrefab.name + "is available? " +availableSpiders[selectedSpiderPrefab.name]);
 			if (availableSpiders[selectedSpiderPrefab.name]){
 				int numberOfVisits = PlayerPrefs.GetInt(selectedSpiderPrefab.name+".numberOfVisits");
-				if (numberOfVisits >= 5) {
+				PlayerPrefs.SetInt (selectedSpiderPrefab.name+".numberOfVisits", numberOfVisits+1);
+				int numberOfCompletedVisits = PlayerPrefs.GetInt(selectedSpiderPrefab.name+".numberOfCompletedVisits");
+				if (numberOfCompletedVisits >= 3) {
 					maybeKillSpider(selectedSpiderPrefab.name);
 				}
 				spiderSpawnerScript.SendMessage("cleanUpSpider");
@@ -121,12 +129,11 @@ public class SpiderMaster : UsesPlayerPrefs {
 				spiderSpawnerScript.SendMessage("spawnSpider");
 			}
 		} else {
-			Debug.LogError("tried to spawn spider at "+spiderSpawnerName+" but either spider wasn't null or bait was null");
+			Debug.Log("tried to spawn spider at "+spiderSpawnerName+" but either spider wasn't null or bait was null");
 		}
 	}
 
 	public void maybeKillSpider(string killerSpider) {
-		Debug.Log ("maybe kill spider!");
 		for(int i = 0; i < spiderSpawners.Length; i++) {
 			if (spiderSpawners[i].GetComponent<SpiderSpawner>().mySpider != null) {
 				killSpider(spiderSpawners[i].GetComponent<SpiderSpawner>(), killerSpider);
@@ -136,11 +143,13 @@ public class SpiderMaster : UsesPlayerPrefs {
 	}
 
 	public void killSpider(SpiderSpawner spiderSpawner, string killerSpiderName) {
-		Debug.Log ("killing spider!");
+		int spidersKilled = PlayerPrefs.GetInt("totalSpidersKilled");
+		PlayerPrefs.SetInt("totalSpidersKilled", spidersKilled+1);
 		PlayerPrefs.SetString(spiderSpawner.mySpider.name+".killedBy", killerSpiderName);
-		canvasHandler.GetComponent<CanvasHandler>().announceDeath(spiderSpawner.mySpider.name, killerSpiderName);
+		string killedSpiderName = spiderSpawner.mySpider.GetComponent<Spider>().simpleName;
 		cleanUpBait(spiderSpawner);
 		cleanUpSpider(spiderSpawner.gameObject.name, spiderSpawner);
+		canvasHandler.GetComponent<CanvasHandler>().displaySpiderPresent(killedSpiderName, killerSpiderName);
 	}
 	public void cleanUpBait(SpiderSpawner spiderSpawnerScript) {
 		spiderSpawnerScript.SendMessage("cleanUpBait");
@@ -155,10 +164,18 @@ public class SpiderMaster : UsesPlayerPrefs {
 	public void updateSpiderVisits(string spiderSpawnerName) {
 		string existingSpider = PlayerPrefs.GetString(spiderSpawnerName+".mySpider","");
 		if (existingSpider != "") {
-			int numberOfVisits = PlayerPrefs.GetInt(existingSpider+".numberOfVisits", 0);
-			Debug.Log ("number of visits for"+existingSpider+": "+(numberOfVisits +1));
-			PlayerPrefs.SetInt(existingSpider+".numberOfVisits", numberOfVisits+1);
+			int numberOfCompletedVisits = PlayerPrefs.GetInt(existingSpider+".numberOfCompletedVisits", 0);
+			Debug.Log ("number of visits for"+existingSpider+": "+(numberOfCompletedVisits +1));
+			PlayerPrefs.SetInt(existingSpider+".numberOfCompletedVisits", numberOfCompletedVisits+1);
 		}
+	}
+
+	public void resetEverything() {
+		for(int i = 0; i < spiderSpawners.Length; i++) {
+			cleanUpBait(spiderSpawners[i].GetComponent<SpiderSpawner>());
+			cleanUpSpider(spiderSpawners[i].gameObject.name, spiderSpawners[i].GetComponent<SpiderSpawner>());
+		}
+		LoadSpiderSpawners();
 	}
 
 	public override void Unsuspend() {

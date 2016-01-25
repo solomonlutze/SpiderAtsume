@@ -37,16 +37,20 @@ public class SpiderSpawner : MonoBehaviour {
 			spiderPrefab.GetComponent<Spider>().spawnerId = gameObject.name;
 			spiderPrefab.GetComponent<Spider>().name = spiderPrefab.GetComponent<Spider>().simpleName;
 			PlayerPrefs.SetString(gameObject.name+".mySpider", spiderPrefab.name);
+			if (PlayerPrefs.GetInt(spiderPrefab.name+".hasVisited") == 0) {
+				int uniqueVisits = PlayerPrefs.GetInt("uniqueSpiderVisits");
+				PlayerPrefs.SetInt("uniqueSpiderVisits", uniqueVisits+1);
+			}
 			PlayerPrefs.SetInt(spiderPrefab.name+".hasVisited", 1);
-			int spiderVisits = PlayerPrefs.GetInt(spiderPrefab.name+".numberOfVisits", 0);
-			spiderVisits = spiderVisits > 5 ? 5 : spiderVisits;
-			Debug.Log ("spiderVisits: "+spiderVisits);
+			int spiderVisitsCompleted = PlayerPrefs.GetInt(spiderPrefab.name+".numberOfCompletedVisits", 0);
+			spiderVisitsCompleted = spiderVisitsCompleted > 5 ? 5 : spiderVisitsCompleted;
 			mySpider.transform.localScale = new Vector3(
-				mySpider.transform.localScale.x + mySpider.transform.localScale.x*0.1F*spiderVisits, 
-				mySpider.transform.localScale.y + mySpider.transform.localScale.y*0.1F*spiderVisits); 
+				mySpider.transform.localScale.x + mySpider.transform.localScale.x*0.1F*spiderVisitsCompleted, 
+				mySpider.transform.localScale.y + mySpider.transform.localScale.y*0.1F*spiderVisitsCompleted); 
 			if (myBait) {
+				Vector3 tempScale = myBait.transform.localScale; //this shouldn't be necessary, but life is never neat.
 				myBait.transform.position = mySpider.transform.position + (mySpider.transform.up * mySpider.transform.localScale.x);
-				myBait.transform.parent = mySpider.transform;
+				myBait.transform.localScale = tempScale;
 			}
 		}
 	}

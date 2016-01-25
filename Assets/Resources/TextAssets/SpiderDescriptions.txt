@@ -1,8 +1,105 @@
 ﻿{
+    "Ariadne": {
+    	"description": "Enjoys mazes. Spins legendarily strong silk.",
+    	"dead": "Her silk is only in legends, now."
+    },
+    "Betsy": {
+    	"description": "Bitsy's biggest, bestest sister.",
+    	"dead": "Not even big spiders live forever."
+    },
+    "Bianca": {
+    	"description": "Friendly but sensitive about her pallor.",
+    	"dead": "Even more pale now, somehow."
+    },
     "Bitsy": {
-    	"description": "Little, but brave."
+    	"description": "Little, but brave.",
+    	"dead": "Courageous until the end."
+    },
+    "Cammy": {
+    	"description": "Very good at hiding.",
+    	"dead": "Not quite good enough at hiding."
+    },
+    "Charlotte": {
+    	"description": "Kind-hearted. Excellent webmanship.",
+    	"dead": "</3"
+    },
+    "Emily": {
+    	"description": "Shy. Tends to stay in her attic.",
+    	"dead": "Death kindly stopped for her."
+    },
+    "Felicity": {
+    	"description": "Said to possess extraordinary luck.",
+    	"dead": "Dying must be the lucky thing to do."
+    },
+    "Helen": {
+    	"description": "The loveliest spider ever, by some accounts.",
+    	"dead": "Beauty is fleeting. Write a poem for her."
+    },
+    "Jade": {
+    	"description": "Lethally venomous, but would never bite.",
+    	"dead": "Not the only lethally venomous one, apparently."
+    },
+    "Joan": {
+    	"description": "Fearsome bite, despite her small size.",
+    	"dead": "Dead. Still fearsome, though."
+    },
+    "Lintilla": {
+    	"description": "Possibly missing an eye? Hard to tell.",
+    	"dead": "Possibly missing an eye? Also dead."
+    },
+    "Marilynne": {
+    	"description": "Tidy. Always keeps an eye out for ghosts.",
+    	"dead": "Hopefully she'll find some ghosts now."
+    },
+    "Misty": {
+    	"description": "Apparently one spider actually looks like this.",
+    	"dead": "Is she any less mysterious in death?"
+    },
+    "Muffet": {
+    	"description": "Very popular online. Loves donuts.",
+    	"dead": "Donated her body to donuts."
+    },
+    "Panda": {
+    	"description": "Has a cute panda face. All children love her.",
+    	"dead": "Pandas are slightly more endangered now."
+    },
+    "Regina": {
+    	"description": "Queen of the spiders, presumably.",
+    	"dead": "Queen of dead spiders, presumably."
+    },
+    "Romy": {
+    	"description": "Hides all manner of secrets.",
+    	"dead": "Emptied of her secrets at last."
+    },
+    "Rosie": {
+    	"description": "Named after her favorite flowers.",
+    	"dead": "Send roses with condolences."
+    },
+    "Sheila": {
+    	"description": "Very outdoorsy. Loves mountain climbing.",
+    	"dead": "Can only climb mountains in heaven now."
+    },
+    "Sylvia": {
+    	"description": "Lives under damp logs.",
+    	"dead": "Died as she lived: under a damp log."
+    },
+    "Titania": {
+    	"description": "Fairy queen with a toadstool throne.",
+    	"dead": "Her fairies would mourn her, if they were real."
+    },
+    "Vega": {
+    	"description": "Desert child with eyes like the sky.",
+    	"dead": "Blown away with the desert dust."
+    },
+    "Vivian": {
+    	"description": "The eye on her back is just for show, right?",
+    	"dead": "The extra eye didn't help her watch her back."
+    },
+    "Zed": {
+    	"description": "Mistakenly thinks she might be dead.",
+    	"dead": "Correctly thinks she might be dead."
     },
     "MissingSpider":{
-    	"description": "A spider that can't be found. How did you get here?"
+    	"description": "You have not made this friend yet. Keep looking!"
     }
 }

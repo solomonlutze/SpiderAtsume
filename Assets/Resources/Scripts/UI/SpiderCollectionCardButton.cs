@@ -8,7 +8,7 @@ public class SpiderCollectionCardButton : MonoBehaviour {
 	public GameObject myCanvas;
 	
 	void Start () {
-		gameObject.GetComponent<Button>().onClick.AddListener(openDescription);
+		gameObject.GetComponentInChildren<Button>().onClick.AddListener(openDescription);
 	}
 	
 	void openDescription() {
