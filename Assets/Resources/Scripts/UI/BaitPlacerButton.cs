@@ -6,14 +6,15 @@ public class BaitPlacerButton : MonoBehaviour {
 
 	public string baitName;
 	public GameObject mySpiderSpawner;
+	public SpiderMaster spiderMaster;
 
 	void Start () {
 		gameObject.GetComponent<Button>().onClick.AddListener(placeBait);
 	}
 
 	void placeBait() {
-		mySpiderSpawner.SendMessage("cleanUpBait");
-		mySpiderSpawner.SendMessage("cleanUpSpider");
+		spiderMaster.cleanUpBait(mySpiderSpawner.GetComponent<SpiderSpawner>());
+		spiderMaster.cleanUpSpider(mySpiderSpawner.name, mySpiderSpawner.GetComponent<SpiderSpawner>());
 		mySpiderSpawner.SendMessage("setBaitAndTimestamp", baitName);
 	}
 

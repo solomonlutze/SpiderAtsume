@@ -28,6 +28,7 @@ public class SpiderMaster : UsesPlayerPrefs {
 			if (PlayerPrefs.GetString(spiderPrefabs[i].name+".killedBy", "") != "") {
 				availableSpiders[spiderPrefabs[i].name] = false;
 			}
+			Debug.Log ("setting Available: "+spiderPrefabs[i].name);
 			spiderPrefabDictionary.Add(spiderPrefabs[i].name, spiderPrefabs[i]);
 		}
 		for(int i = 0; i < spiderSpawners.Length; i++) { //This loop prevents spawning a spider randomly who already was loaded at another spawner.
@@ -144,10 +145,11 @@ public class SpiderMaster : UsesPlayerPrefs {
 	public void killSpider(SpiderSpawner spiderSpawner, string killerSpiderName) {
 		int spidersKilled = PlayerPrefs.GetInt("totalSpidersKilled");
 		PlayerPrefs.SetInt("totalSpidersKilled", spidersKilled+1);
-		PlayerPrefs.SetString(spiderSpawner.mySpider.name+".killedBy", killerSpiderName);
 		string killedSpiderName = spiderSpawner.mySpider.GetComponent<Spider>().simpleName;
+		PlayerPrefs.SetString(killedSpiderName+".killedBy", killerSpiderName);
 		cleanUpBait(spiderSpawner);
 		cleanUpSpider(spiderSpawner.gameObject.name, spiderSpawner);
+		availableSpiders[killedSpiderName] = false;
 		canvasHandler.GetComponent<CanvasHandler>().displaySpiderPresent(killedSpiderName, killerSpiderName);
 	}
 	public void cleanUpBait(SpiderSpawner spiderSpawnerScript) {
