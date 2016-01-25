@@ -36,7 +36,6 @@ public class SpiderMaster : UsesPlayerPrefs {
 				availableSpiders[existingSpider] = false;
 			}
 		}
-		canvasHandler.GetComponent<CanvasHandler>().showWinner("Bitsy");
 		if (PlayerPrefs.GetInt("totalSpidersKilled") == spiderPrefabs.Length - 1) {
 			string winnerSpider = "MissingSpider";
 			foreach (string potentialWinner in availableSpiders.Keys) {
