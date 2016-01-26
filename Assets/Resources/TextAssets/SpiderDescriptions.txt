@@ -1,5 +1,8 @@
 ﻿{
-    "Ariadne": {
+    "Anansi": {
+    	"description": "True master of spiders. She's impossible to trick.",
+    	"dead": "You know these are just regular spiders, right?"
+    },"Ariadne": {
     	"description": "Enjoys mazes. Spins legendarily strong silk.",
     	"dead": "Her silk is only in legends, now."
     },

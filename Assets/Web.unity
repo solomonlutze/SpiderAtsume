@@ -407,6 +407,67 @@ MonoBehaviour:
   - Butterfly
   - Dragonfly
   - Scarab
+--- !u!1 &108151995
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 108151998}
+  - 222: {fileID: 108151997}
+  - 114: {fileID: 108151996}
+  m_Layer: 5
+  m_Name: TitleImage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &108151996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 108151995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 6f70f4e90a8b74c818310d498940e176, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &108151997
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 108151995}
+--- !u!224 &108151998
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 108151995}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1906626156}
+  m_RootOrder: 1
+  m_AnchorMin: {x: .5, y: .5}
+  m_AnchorMax: {x: .5, y: .5}
+  m_AnchoredPosition: {x: 79, y: -442}
+  m_SizeDelta: {x: 445, y: 85}
+  m_Pivot: {x: .5, y: .5}
 --- !u!1 &152141254
 GameObject:
   m_ObjectHideFlags: 0
@@ -1329,6 +1390,7 @@ MonoBehaviour:
   collectionCanvas: {fileID: 1165113429}
   cutsceneCanvas: {fileID: 1316689344}
   creditsCanvas: {fileID: 458471220}
+  titleCanvas: {fileID: 1906626152}
   spiderMaster: {fileID: 1374236102}
   presentPrefab: {fileID: 101726, guid: 1f7b5e28ae016406792550bc93231750, type: 2}
   announceDeathPrefab: {fileID: 192394, guid: 1b5f27e76f556402d8f3b68e52585403, type: 2}
@@ -1556,6 +1618,72 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &472294631
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 472294632}
+  - 222: {fileID: 472294634}
+  - 114: {fileID: 472294633}
+  m_Layer: 5
+  m_Name: PageNumberText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &472294632
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 472294631}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1916035942}
+  m_RootOrder: 11
+  m_AnchorMin: {x: .5, y: .5}
+  m_AnchorMax: {x: .5, y: .5}
+  m_AnchoredPosition: {x: 0, y: 315}
+  m_SizeDelta: {x: 160, y: 30}
+  m_Pivot: {x: .5, y: .5}
+--- !u!114 &472294633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 472294631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: .196078435, g: .196078435, b: .196078435, a: 1}
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 644aefc7d2c06bb4281161ff8ad36463, type: 3}
+    m_FontSize: 38
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 1
+    m_LineSpacing: 1
+  m_Text: 1/6
+--- !u!222 &472294634
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 472294631}
 --- !u!1 &528949179
 GameObject:
   m_ObjectHideFlags: 0
@@ -1858,7 +1986,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &663245026
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3086,7 +3214,7 @@ RectTransform:
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 640, y: 1025}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1100068767
 MonoBehaviour:
@@ -3094,7 +3222,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1100068765}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
@@ -3401,27 +3529,28 @@ MonoBehaviour:
   - {fileID: 148452, guid: 24fa6623db01842c4bb8d4a9716dd164, type: 2}
   - {fileID: 178400, guid: 7f04d311362534445987c664852a3d73, type: 2}
   - {fileID: 129048, guid: d2672ba425c8f478da4879f6d4ea854f, type: 2}
-  - {fileID: 180760, guid: b50eb47bb7ca840139a1842a7008a034, type: 2}
   - {fileID: 155056, guid: 1da2717655c4a4f43b0cbe72ec81e7ba, type: 2}
+  - {fileID: 180760, guid: b50eb47bb7ca840139a1842a7008a034, type: 2}
   - {fileID: 189602, guid: c38312f19dc5544b285c7045a6a35bfb, type: 2}
   - {fileID: 164260, guid: bd091748934f94ebf9bc8c3d5ebbbcbb, type: 2}
-  - {fileID: 159308, guid: 85c3081ee8a844ad8a49195fb91fd89b, type: 2}
+  - {fileID: 125966, guid: 3beb2608fb4394f30a7946a815c76fb0, type: 2}
   - {fileID: 151718, guid: e12d44a7ee4254c1b93815ccb8fa4207, type: 2}
   - {fileID: 103444, guid: ffc658b7dab9849658fe49cba625a13f, type: 2}
-  - {fileID: 132566, guid: 27ed9696243a2425aa54fb58897feebb, type: 2}
+  - {fileID: 159308, guid: 85c3081ee8a844ad8a49195fb91fd89b, type: 2}
   - {fileID: 154074, guid: a0a59d3e921d047cba6113eac555b359, type: 2}
-  - {fileID: 125966, guid: 3beb2608fb4394f30a7946a815c76fb0, type: 2}
   - {fileID: 175936, guid: 33e52555183864dc7af023a06194a5b4, type: 2}
+  - {fileID: 132566, guid: 27ed9696243a2425aa54fb58897feebb, type: 2}
   - {fileID: 148290, guid: 075dc1ef7413a4b48b87cae73336a4f4, type: 2}
-  - {fileID: 181048, guid: 0e6db74ba792b4d3abf865429a6e52ee, type: 2}
-  - {fileID: 192794, guid: f25ce6f7c42a041c78ebde0f5deeb4e3, type: 2}
   - {fileID: 128422, guid: a484c0311f7f8433294e7cdb4f9979aa, type: 2}
   - {fileID: 150934, guid: 1a4493dfca17d4f46834b7b747db3303, type: 2}
+  - {fileID: 181048, guid: 0e6db74ba792b4d3abf865429a6e52ee, type: 2}
+  - {fileID: 192794, guid: f25ce6f7c42a041c78ebde0f5deeb4e3, type: 2}
   - {fileID: 108886, guid: 863c705b3807d46fa9634289c3f05ed0, type: 2}
   - {fileID: 187716, guid: 14fdbb89aeb3b40b4afa3ea35d879c37, type: 2}
   - {fileID: 110256, guid: fa01bb6f816954d79b19d11fbf27d0d5, type: 2}
   - {fileID: 102734, guid: 05daba448e985482e89bdaaa6c04137d, type: 2}
   - {fileID: 160732, guid: 737d143e450b94e548abb3bbc752061d, type: 2}
+  - {fileID: 134324, guid: c9ad5700a3f2f44d0b1448884379c6dd, type: 2}
   collectionButtons:
   - {fileID: 1706298233}
   - {fileID: 1775673321}
@@ -3430,6 +3559,7 @@ MonoBehaviour:
   missingSpiderPrefab: {fileID: 155062, guid: ecf59b3bfc4664df1b2ed61072f5662d, type: 2}
   spiderDescriptionPrefab: {fileID: 161022, guid: 19fe8e1dee86d4f40949eed8c5964ef6,
     type: 2}
+  pageNumberText: {fileID: 472294633}
   spidersCollectedText: {fileID: 1002717697}
   spidersDeadText: {fileID: 1397743931}
   spidersDeadIcon: {fileID: 1241231608}
@@ -4011,27 +4141,28 @@ MonoBehaviour:
   - {fileID: 100762, guid: 1941a1ee0db9c48db921a07ed629e6ff, type: 2}
   - {fileID: 163562, guid: e8992be05f13144c996186a4673034ae, type: 2}
   - {fileID: 147704, guid: c2aa79ace25b54b73a1983359ba8386b, type: 2}
-  - {fileID: 112608, guid: a3505c9707f474b909d6cdfce5e6f8b0, type: 2}
   - {fileID: 138768, guid: 3ec03f2424ca84c01a8577d55aed8225, type: 2}
+  - {fileID: 112608, guid: a3505c9707f474b909d6cdfce5e6f8b0, type: 2}
   - {fileID: 171742, guid: 15f1cccb50cf440f4831f3fe1a366fe8, type: 2}
   - {fileID: 149210, guid: 3a6b5ff24b0674f6b806fef49e81920e, type: 2}
-  - {fileID: 140448, guid: a94fa2482c653482d80bb02031906e80, type: 2}
+  - {fileID: 182958, guid: 74a2e8fae6c6c43a387369b30f3f9f78, type: 2}
   - {fileID: 144094, guid: 60e7eb682dceb47039796be9fc33a6b0, type: 2}
   - {fileID: 187670, guid: b2f347dba17b3410fa46ec3dd389c55d, type: 2}
-  - {fileID: 153202, guid: 5581ac50f160346638d2f6ab377016a3, type: 2}
+  - {fileID: 140448, guid: a94fa2482c653482d80bb02031906e80, type: 2}
   - {fileID: 102216, guid: 88a9102db9be24623a6624a81d63644b, type: 2}
-  - {fileID: 182958, guid: 74a2e8fae6c6c43a387369b30f3f9f78, type: 2}
   - {fileID: 151478, guid: 132541dc7266e42aebd0a5d5744f3ef8, type: 2}
+  - {fileID: 153202, guid: 5581ac50f160346638d2f6ab377016a3, type: 2}
   - {fileID: 101952, guid: 1bf5a8a197c8d4995952c8f3a151e9a5, type: 2}
-  - {fileID: 126304, guid: 6f6a6efe5f1e1423dafd066bf09d0f82, type: 2}
-  - {fileID: 144000, guid: b8c284e339ffe44d2b703d658c7f47ee, type: 2}
   - {fileID: 141910, guid: 52d6b34ede3ac43a491d8b56e44204ed, type: 2}
   - {fileID: 104720, guid: 66942305785ee4611b62e3dbb92db141, type: 2}
+  - {fileID: 126304, guid: 6f6a6efe5f1e1423dafd066bf09d0f82, type: 2}
+  - {fileID: 144000, guid: b8c284e339ffe44d2b703d658c7f47ee, type: 2}
   - {fileID: 146938, guid: 1ba683ee93f86419e9210f644c74ac45, type: 2}
   - {fileID: 121098, guid: 621b2903f10524f4f96a3fa48398b46b, type: 2}
   - {fileID: 147548, guid: b4538259bdfbb4ad2b606045c99f95c6, type: 2}
   - {fileID: 155188, guid: a668ce9e743444c4cb80997cd13f51b7, type: 2}
   - {fileID: 144214, guid: d7aafd590ee0c499394464c57daa25da, type: 2}
+  - {fileID: 183142, guid: 5b9dbf27aeed64e33b4d4376917d4606, type: 2}
   canvasHandler: {fileID: 417509489}
   baitArray:
   - Housefly
@@ -4040,9 +4171,9 @@ MonoBehaviour:
   - Butterfly
   - Dragonfly
   - Scarab
-  secondsBetweenBaitPlacingAndEating: 10
-  secondsBetweenEatingAndChilling: 30
-  secondsBetweenChillingAndLeaving: 60
+  secondsBetweenBaitPlacingAndEating: 15
+  secondsBetweenEatingAndChilling: 900
+  secondsBetweenChillingAndLeaving: 7200
 --- !u!4 &1374236104
 Transform:
   m_ObjectHideFlags: 0
@@ -5600,7 +5731,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1906626153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5666,6 +5797,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1100068766}
+  - {fileID: 108151998}
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_AnchorMin: {x: 0, y: 0}
@@ -5711,6 +5843,7 @@ RectTransform:
   - {fileID: 1397743930}
   - {fileID: 1452955747}
   - {fileID: 1241231607}
+  - {fileID: 472294632}
   m_Father: {fileID: 1165113430}
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}

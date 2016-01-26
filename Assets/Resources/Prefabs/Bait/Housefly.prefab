@@ -55,7 +55,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spiderMin: 0
-  spiderMax: 6
+  spiderMax: 5
   simpleName: Housefly
 --- !u!212 &21207580
 SpriteRenderer:
@@ -97,7 +97,7 @@ Prefab:
         type: 3}
     - target: {fileID: 0}
       propertyPath: spiderMax
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: simpleName
@@ -106,6 +106,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_SortingLayerID
       value: -2132197365
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: spiderMin
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

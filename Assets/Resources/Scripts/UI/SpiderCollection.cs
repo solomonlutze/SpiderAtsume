@@ -12,6 +12,7 @@ public class SpiderCollection : MonoBehaviour {
 	private GameObject currentSpiderDescription;
 	public GameObject missingSpiderPrefab;
 	public GameObject spiderDescriptionPrefab;
+	public Text pageNumberText;
 	public Text spidersCollectedText;
 	public Text spidersDeadText;
 	public Image spidersDeadIcon;
@@ -23,6 +24,7 @@ public class SpiderCollection : MonoBehaviour {
 	private Dictionary<string, Sprite> spiderSprites = new Dictionary<string, Sprite>();
 
 	void Start() {
+//		PlayerPrefs.SetInt("anansiHasVisited", 1);
 		spiderSpriteList = Resources.LoadAll("Art/Character/Spider", typeof(Sprite));
 		foreach (Sprite sprite in spiderSpriteList) {
 			spiderSprites.Add(sprite.name, sprite);
@@ -34,6 +36,7 @@ public class SpiderCollection : MonoBehaviour {
 	void displayCollectionButtons () {
 		int uniqueVisits = PlayerPrefs.GetInt("uniqueSpiderVisits");
 		int spidersKilled = PlayerPrefs.GetInt("totalSpidersKilled");
+		pageNumberText.text = page+"/6";
 		spidersCollectedText.text = uniqueVisits+"/24";
 		if (spidersKilled > 0) {
 			spidersDeadText.enabled = true;
@@ -43,25 +46,29 @@ public class SpiderCollection : MonoBehaviour {
 			spidersDeadText.enabled = false;
 			spidersDeadIcon.enabled = false;
 		}
+		int anansiOffset = (PlayerPrefs.GetInt("anansiHasVisited") == 1 ? 0 : 1); //we'll subtract 1 later if anansi hasn't visited
 		for(int i = 0; i < collectionButtons.Length; i++) {
 			GameObject.Destroy(currentSpiderCards[i]);
 			GameObject myPrefab = missingSpiderPrefab;
 			if (i + ((page-1) * collectionButtons.Length) < collectedSpiderPrefabs.Length
 			    && 1 == PlayerPrefs.GetInt(collectedSpiderPrefabs[i + ((page-1) * collectionButtons.Length)].name+".hasVisited") ) {
-			 	myPrefab = collectedSpiderPrefabs[i + ((page-1) * collectionButtons.Length)];
+				myPrefab = collectedSpiderPrefabs[i + ((page-1) * collectionButtons.Length)];
 			}
-			GameObject collectionButton = collectionButtons[i];
-			GameObject spiderCard = GameObject.Instantiate(myPrefab, collectionButton.transform.position, collectionButton.transform.rotation) as GameObject;
-			spiderCard.transform.SetParent(collectionButton.transform, false);
-			spiderCard.transform.position = collectionButton.transform.position;
-			spiderCard.GetComponent<SpiderCollectionCardButton>().myCanvas = gameObject;
-			spiderCard.GetComponent<SpiderCollectionCardButton>().mySpider = myPrefab.name;
-			currentSpiderCards[i] = spiderCard;
+			if (i + ((page-1) * collectionButtons.Length) < collectedSpiderPrefabs.Length - anansiOffset ) { //worst math, played on ugliest guitar 
+				GameObject collectionButton = collectionButtons[i];
+				GameObject spiderCard = GameObject.Instantiate(myPrefab, collectionButton.transform.position, collectionButton.transform.rotation) as GameObject;
+				spiderCard.transform.SetParent(collectionButton.transform, false);
+				spiderCard.transform.position = collectionButton.transform.position;
+				spiderCard.GetComponent<SpiderCollectionCardButton>().myCanvas = gameObject;
+				spiderCard.GetComponent<SpiderCollectionCardButton>().mySpider = myPrefab.name;
+				currentSpiderCards[i] = spiderCard;
+			}
 		}
 	}
 
 	public void pageForward () {
-		if (page == 6) {
+		int anansiOffset = PlayerPrefs.GetInt("anansiHasVisited");
+		if (page == 6+anansiOffset) {
 			page = 1;
 		} else {
 			page++;
@@ -70,8 +77,9 @@ public class SpiderCollection : MonoBehaviour {
 	}
 
 	public void pageBackward () {
+		int anansiOffset = PlayerPrefs.GetInt("anansiHasVisited");
 		if (page == 1) {
-			page = 6;
+			page = 6+anansiOffset;
 		} else {
 			page--;
 		}

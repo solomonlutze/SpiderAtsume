@@ -54,7 +54,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30b61fe77c55d4c57b602b1b9fa5ee10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnerId: SpiderSpawner3
+  spawnerId: SpiderSpawner2
   simpleName: Panda
 --- !u!212 &21280076
 SpriteRenderer:

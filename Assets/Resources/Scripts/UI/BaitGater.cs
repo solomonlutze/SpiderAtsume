@@ -11,7 +11,6 @@ public class BaitGater : MonoBehaviour {
 	
 	public void populateAvailableBait() {
 		int uniqueSpiderVisits = PlayerPrefs.GetInt("uniqueSpiderVisits");
-		Debug.Log ("uniqueSpiderVisits "+uniqueSpiderVisits);
 		for(int i = 0; i < baitArray.Length; i++) {
 			Transform childButton = transform.FindChild(baitArray[i]+"NotAvailableButton");
 			if (childButton != null) {

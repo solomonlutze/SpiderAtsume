@@ -28,7 +28,6 @@ public class SpiderMaster : UsesPlayerPrefs {
 			if (PlayerPrefs.GetString(spiderPrefabs[i].name+".killedBy", "") != "") {
 				availableSpiders[spiderPrefabs[i].name] = false;
 			}
-			Debug.Log ("setting Available: "+spiderPrefabs[i].name);
 			spiderPrefabDictionary.Add(spiderPrefabs[i].name, spiderPrefabs[i]);
 		}
 		for(int i = 0; i < spiderSpawners.Length; i++) { //This loop prevents spawning a spider randomly who already was loaded at another spawner.
@@ -115,15 +114,16 @@ public class SpiderMaster : UsesPlayerPrefs {
 			Bait baitScript = spiderSpawnerScript.myBait.GetComponent<Bait>();
 			int min = baitScript.spiderMin;
 			int max = baitScript.spiderMax;
-			int roll = UnityEngine.Random.Range(min, max);
-			GameObject selectedSpiderPrefab = spiderPrefabs[roll];
-			Debug.Log ("max "+baitScript.spiderMax);
-			Debug.Log ("selected "+roll);
-			if (availableSpiders[selectedSpiderPrefab.name]){
-				int numberOfVisits = PlayerPrefs.GetInt(selectedSpiderPrefab.name+".numberOfVisits");
-				PlayerPrefs.SetInt (selectedSpiderPrefab.name+".numberOfVisits", numberOfVisits+1);
-				int numberOfCompletedVisits = PlayerPrefs.GetInt(selectedSpiderPrefab.name+".numberOfCompletedVisits");
-				if (numberOfCompletedVisits >= 3) {
+			GameObject selectedSpiderPrefab = spiderPrefabs[UnityEngine.Random.Range(min, max)];
+			if ((PlayerPrefs.GetInt("totalSpidersKilled") == 0 && PlayerPrefs.GetInt("uniqueSpiderVisits") >= 24 && PlayerPrefs.GetInt("anansiHasVisited") == 0)
+				|| (PlayerPrefs.GetInt("anansiHasVisited") == 1 && UnityEngine.Random.Range(0,25) == 0)) {
+					PlayerPrefs.SetInt("anansiHasVisited", 1);
+					selectedSpiderPrefab = spiderPrefabDictionary["Anansi"];
+			}
+			if (availableSpiders[selectedSpiderPrefab.name] && specialSpiderConditions(selectedSpiderPrefab.name)){
+				int newNumberOfVisits = PlayerPrefs.GetInt(selectedSpiderPrefab.name+".numberOfVisits") + 1;
+				PlayerPrefs.SetInt (selectedSpiderPrefab.name+".numberOfVisits", newNumberOfVisits);
+				if (newNumberOfVisits >= 3) {
 					maybeKillSpider(selectedSpiderPrefab.name);
 				}
 				spiderSpawnerScript.SendMessage("cleanUpSpider");
@@ -131,9 +131,7 @@ public class SpiderMaster : UsesPlayerPrefs {
 				spiderSpawnerScript.spiderPrefab = selectedSpiderPrefab;
 				spiderSpawnerScript.SendMessage("spawnSpider");
 			}
-		} else {
-			Debug.Log("tried to spawn spider at "+spiderSpawnerName+" but either spider wasn't null or bait was null");
-		}
+		} 
 	}
 
 	public void maybeKillSpider(string killerSpider) {
@@ -156,7 +154,7 @@ public class SpiderMaster : UsesPlayerPrefs {
 		canvasHandler.GetComponent<CanvasHandler>().displaySpiderPresent(killedSpiderName, killerSpiderName);
 	}
 	public void cleanUpBait(SpiderSpawner spiderSpawnerScript) {
-		spiderSpawnerScript.SendMessage("cleanUpBait");
+		spiderSpawnerScript.cleanUpBait();
 	}
 
 	public void cleanUpSpider(string spiderSpawnerName, SpiderSpawner spiderSpawnerScript) {
@@ -169,7 +167,6 @@ public class SpiderMaster : UsesPlayerPrefs {
 		string existingSpider = PlayerPrefs.GetString(spiderSpawnerName+".mySpider","");
 		if (existingSpider != "") {
 			int numberOfCompletedVisits = PlayerPrefs.GetInt(existingSpider+".numberOfCompletedVisits", 0);
-			Debug.Log ("number of visits for"+existingSpider+": "+(numberOfCompletedVisits +1));
 			PlayerPrefs.SetInt(existingSpider+".numberOfCompletedVisits", numberOfCompletedVisits+1);
 		}
 	}
@@ -182,6 +179,50 @@ public class SpiderMaster : UsesPlayerPrefs {
 		LoadSpiderSpawners();
 	}
 
+	bool specialSpiderConditions(string spiderName) {
+		if (spiderName == "Marilynne") {
+			if (PlayerPrefs.GetInt("uniqueSpiderVisits") >= 20 || PlayerPrefs.GetInt("totalSpidersKilled") > 0) {
+				return true;
+			}
+			return false;
+		} else if (spiderName == "Betsy") {
+			if (!availableSpiders["Bitsy"]) {
+				return true;
+			}
+			return false;
+		} else if (spiderName == "Emily") {
+			for(int i = 0; i < spiderSpawners.Length; i++) {
+				if (spiderSpawners[i].GetComponent<SpiderSpawner>().mySpider != null) {
+					return false;
+				}
+			}
+			return true;
+		} else if (spiderName == "Panda") {
+			int numberOfButterflies = 0;
+			for(int i = 0; i < spiderSpawners.Length; i++) {
+				if (spiderSpawners[i].GetComponent<SpiderSpawner>().myBait != null 
+				  	&& spiderSpawners[i].GetComponent<SpiderSpawner>().myBait.GetComponent<Bait>().simpleName == "Butterfly") {
+						numberOfButterflies++;
+				}
+			}
+			if (numberOfButterflies == 1) {
+			  	return true;
+			}
+			return false;
+		} else if (spiderName == "Regina") {
+			int otherSpiders = 0;
+			for(int i = 0; i < spiderSpawners.Length; i++) {
+				if (spiderSpawners[i].GetComponent<SpiderSpawner>().mySpider != null) {
+					otherSpiders++;
+				}
+			}
+			if (otherSpiders == 3) {
+				return true;
+			}
+			return false;
+		}
+		return true;
+	}
 	public override void Unsuspend() {
 		LoadSpiderSpawners();	
 	}

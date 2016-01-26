@@ -55,7 +55,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spiderMin: 4
-  spiderMax: 10
+  spiderMax: 9
   simpleName: Mosquito
 --- !u!212 &21266912
 SpriteRenderer:
@@ -101,7 +101,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: spiderMax
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: simpleName

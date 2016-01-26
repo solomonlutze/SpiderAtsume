@@ -11,6 +11,7 @@ public class CanvasHandler : MonoBehaviour {
 	public GameObject collectionCanvas;
 	public GameObject cutsceneCanvas;
 	public GameObject creditsCanvas;
+	public GameObject titleCanvas;
 	public GameObject spiderMaster;
 	public GameObject presentPrefab;
 	public GameObject announceDeathPrefab;
@@ -45,10 +46,16 @@ public class CanvasHandler : MonoBehaviour {
 		creditsCanvas.SetActive(false);
 		spiderSpriteList = Resources.LoadAll("Art/Character/Spider", typeof(Sprite)); //duplicate logic appears in SpiderCollection. 
 		foreach (Sprite sprite in spiderSpriteList) {								  //We could make a static script to do this.
-			Debug.Log ("adding "+sprite.name);
 			spiderSprites.Add(sprite.name, sprite);			
 		}
-//		cutsceneCanvas.SetActive(false);
+		StartCoroutine("displayTitleCanvas");
+	}
+
+	public IEnumerator displayTitleCanvas() {
+		playCanvas.SetActive(false);
+		titleCanvas.SetActive(true);
+		yield return new WaitForSeconds (2);
+		CloseMenu ();
 	}
 
 	public void OpenMenu () {
@@ -67,6 +74,7 @@ public class CanvasHandler : MonoBehaviour {
 
 	}
 	public void CloseMenu () {
+		titleCanvas.SetActive(false);
 		if (collectionCanvas.activeSelf) {
 			collectionCanvas.SendMessage("resetPage");
 		}

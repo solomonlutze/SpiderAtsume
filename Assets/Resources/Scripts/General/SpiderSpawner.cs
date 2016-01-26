@@ -24,8 +24,6 @@ public class SpiderSpawner : MonoBehaviour {
 	void placeBait(string baitName){
 		if (myBait == null) {
 			PlayerPrefs.SetString(gameObject.name+".myBait", baitName);
-			//		CleanUpSpider(); //gonna just, hope we don't need these either!!
-			//		cleanUpBait();
 			myBait = Instantiate(Resources.Load(baseBaitPath+baitName), transform.position, transform.rotation) as GameObject;
 		}
 	}
@@ -42,11 +40,11 @@ public class SpiderSpawner : MonoBehaviour {
 				PlayerPrefs.SetInt("uniqueSpiderVisits", uniqueVisits+1);
 			}
 			PlayerPrefs.SetInt(spiderPrefab.name+".hasVisited", 1);
-			int spiderVisitsCompleted = PlayerPrefs.GetInt(spiderPrefab.name+".numberOfCompletedVisits", 0);
-			spiderVisitsCompleted = spiderVisitsCompleted > 5 ? 5 : spiderVisitsCompleted;
+			int spiderVisits = PlayerPrefs.GetInt(spiderPrefab.name+".numberOfVisits", 0);
+			spiderVisits = spiderVisits > 5 ? 5 : spiderVisits;
 			mySpider.transform.localScale = new Vector3(
-				mySpider.transform.localScale.x + mySpider.transform.localScale.x*0.1F*spiderVisitsCompleted, 
-				mySpider.transform.localScale.y + mySpider.transform.localScale.y*0.1F*spiderVisitsCompleted); 
+				mySpider.transform.localScale.x + mySpider.transform.localScale.x*0.1F*spiderVisits, 
+				mySpider.transform.localScale.y + mySpider.transform.localScale.y*0.1F*spiderVisits); 
 			if (myBait) {
 				Vector3 tempScale = myBait.transform.localScale; //this shouldn't be necessary, but life is never neat.
 				myBait.transform.position = mySpider.transform.position + (mySpider.transform.up * mySpider.transform.localScale.x);
@@ -55,7 +53,7 @@ public class SpiderSpawner : MonoBehaviour {
 		}
 	}
 
-	void cleanUpBait() {
+	public void cleanUpBait() {
 		if (myBait != null) {
 			GameObject.Destroy(myBait);
 			myBait = null;
